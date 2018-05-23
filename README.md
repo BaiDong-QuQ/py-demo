@@ -1,3 +1,4 @@
+
 >对于每个即将就读社会大学的学生，总要面临就业问题。如何赢在起跑线上，在网上找到心仪的工作并做好准备？今天让我们来爬取实习僧的招聘信息，看看当今的实习岗位数据分析，助你成功！！！
 
 **运行平台：** windows
@@ -90,6 +91,7 @@ def get_detail_pageinfo(response):
 ### 3.2 分析有用数据
 选中其中一个职位信息，发现满满的数据，找到想要获取的数据，分别通过元素定位找到对应HTML代码
 ![职位信息具体页面](https://upload-images.jianshu.io/upload_images/11018306-e5832acb02696bf7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 首先，利用前面爬取到的职位链接，请求职位具体数据页
 ```
 def get_detail_page(href):
@@ -161,7 +163,9 @@ def parse_detail_info(response):
 ```
 哎，看上去貌似很简单，爬虫不难嘛！
 看到这里或许很多人会这样想。爬虫本身是一门讲究耐心和方法的技术，看似简单地代码背后，需要反复调试。同时，实习僧对信息的整理很到位，几乎不需要进行数据清洗，即爬即用。
+
 不过先别高兴太早，在工资处元素定位看清楚再说
+
 ![被实习僧加密的数字](https://upload-images.jianshu.io/upload_images/11018306-f9244081ddd47e24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 什么，我的工资呢!!!∑(ﾟДﾟノ)ノ。咦~仔细看看，个别文字也被加密处理。
 实习僧反爬力度不大，可轻松提取信息，然而也有加密处理信息。没有解密的话，所有数字和个别文字都显示为正方形。（你的工资空空如也）
@@ -192,7 +196,7 @@ def decrypt_text(text):
 附上更为详尽的解密方式解说，此处不做过多赘述
 1. [爬虫实战|破解“实习僧”网站字体加密](https://baijiahao.baidu.com/s?id=1596054551904654936&wfr=spider&for=pc&isFailFlag=1)
 2. [Python爬虫杂记 - 字体文件反爬（二）](https://www.jianshu.com/p/0e2e1aa6d270)
-##4. 文件读写
+## 4. 文件读写
 获取的数据字段数相同，且样本量不大，这里直接存储为csv文件格式
 （__CSV__ :逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本）。纯文本意味着该文件是一个字符序列，不含必须像二进制数字那样被解读的数据。
 ）
@@ -242,7 +246,7 @@ file ：文件的存储路径（带有文件名）
 + pip install numpy
 + pip install scipy
 
-#### 5.1.1词汇的存储与读取
+#### 5.1.1 词汇的存储与读取
 ```
 # 写入txt文本
 def write_txt_file(file, txt):
@@ -255,7 +259,7 @@ def read_txt_file(file):
     with open(file, 'r', encoding='gb18030', newline='') as f:
         return f.read()
 ```
-####5.1.2停止词过滤
+#### 5.1.2 停止词过滤
 ![stopwords.txt文件](https://upload-images.jianshu.io/upload_images/11018306-00f7813ed9db6185.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 百度搜索stopword.txt即可下载，把文件放在py文件同级目录
@@ -272,7 +276,7 @@ content：读取 txt 文件的数据
 
 __PS__:可依照个人偏向，自助在stopwords.txt添加过滤词汇
 
-####5.1.3词云制作
+#### 5.1.3 词云制作
 统计词汇虽然简单，但无法给人带来视觉冲击，便引用词云，带入可视化。
 ```
 def wordcloud(words_df, keyword, cityid):
@@ -312,7 +316,9 @@ def wordcloud(words_df, keyword, cityid):
     plt.imshow(wordcloud)
     plt.axis("off")
 ```
-图片对比
+
+__图片对比__
+
 ![背景图backgroud](https://upload-images.jianshu.io/upload_images/11018306-0499bf0a84277784.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![生成图——广州_数据分析_热词图](https://upload-images.jianshu.io/upload_images/11018306-40a64026ee8fa581.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ### 5.2 学历分布饼图
@@ -424,6 +430,7 @@ for i in tqdm(range(pages)):
         print('已录入 %d 条数据' % n)
 ```
 ![交互窗口界面](https://upload-images.jianshu.io/upload_images/11018306-453574312088df7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 其中print()代码可以省略，这里是由于样本量较小故多加一步显示，实质上输出语句运行很慢，影响效率，依个人喜好是否删减。
 ### 6.3 城市编码转化
 由于实习僧对地区城市分别进行了编码，不清楚编码的小伙伴在使用时很麻烦。所以我又写了一个小爬虫，把城市编码抓取下来并形成一个json文件方便提取。
@@ -800,18 +807,19 @@ if __name__ == '__main__':
     '''
 ```
 最后结果运行即为文章开头所示，在当前.py文件的目录下生成文件。
+
 ![运行后文件总览](https://upload-images.jianshu.io/upload_images/11018306-a6739e33a15b5f4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ## 8. 干货奉献
-1、[项目文件](https://github.com/BaiDong-QuQ/py-demo)：全都放在本人的github里，欢迎多多指点讨论
-2、[anaconda](https://www.anaconda.com/download/)：是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。更集成了jupyter nootbook,spyder等实用IDE。若先前没有下载Python，可选择附带下载。觉得官网安装过于缓慢的，可以在[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)进行下载。
+1. 项目文件](https://github.com/BaiDong-QuQ/py-demo)：全都放在本人的github里，欢迎多多指点讨论
+2. [anaconda](https://www.anaconda.com/download/)：是一个开源的Python发行版本，其包含了conda、Python等180多个科学包及其依赖项。更集成了jupyter nootbook,spyder等实用IDE。若先前没有下载Python，可选择附带下载。觉得官网安装过于缓慢的，可以在[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)进行下载。
 下载自带conda，效果同pip，在第三方库安装失败是可查看此攻略：[
 Anaconda找包，安装包时，遇到PackageNotFoundError： ''Package missing in current channels"](https://blog.csdn.net/ksws0292756/article/details/79192268)
-3、[Pycharm](https://mp.weixin.qq.com/s/AVRr5F0YzBAYskiMvD0Dng)：PyCharm是一种Python IDE，带有一整套可以帮助用户在使用Python语言开发时提高其效率的工具，比如调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制。（这里安利一波，良心公众号“软件安装管家”，多种无毒破解软件，更有超小白安装教程。多次被拯救的我不得不服d(´ω｀*)）
-4、第三方库安装：
+3. [Pycharm](https://mp.weixin.qq.com/s/AVRr5F0YzBAYskiMvD0Dng)：PyCharm是一种Python IDE，带有一整套可以帮助用户在使用Python语言开发时提高其效率的工具，比如调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制。（这里安利一波，良心公众号“软件安装管家”，多种无毒破解软件，更有超小白安装教程。多次被拯救的我不得不服d(´ω｀*)）
+4. 第三方库安装：
 https://www.lfd.uci.edu/~gohlke/pythonlibs/
 https://pypi.tuna.tsinghua.edu.cn/simple/
 通过pip，conda无法直接下载的，可以通过以上两个网站，Ctrl+F，找到所需库文件，安装下载
 
-文章总结：
+__文章总结__：
 文章用Python抓取了实习僧网站上的职位数据，并作出简单图表分析当前就职环境。其中，实习僧的加密困扰了我很久，最后以一种比较简朴的方法解决，部分文字仍未处理。
 文章对数据挖掘利用较浅，代码运行速度也是一大问题，可考虑多线程多进程优化处理。学术尚浅，希望仍可帮到一丝看到本文的你。
